@@ -1,2 +1,2 @@
 # microsoft-identity-zero-trust
-Zero-trust access decisions (Microsoft-class identity)
+**Portfolio** — zero-trust access decisions (Microsoft-class identity).
