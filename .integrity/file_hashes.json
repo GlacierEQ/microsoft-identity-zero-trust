@@ -1,16 +1,13 @@
 {
-  "repo": "microsoft-identity-zero-trust",
-  "algorithm": "sha256",
-  "file_count": 9,
+  "file_count": 8,
   "hashes": {
-    "README.md": "b7374161bd6cf76526e19786958f0c39385b3a91818d01485519ca051f3ec99c",
-    "EASTER_EGGS.md": "0c4fc58a6163b54497fc8327ec77f4293330eea4ba636e30db202836bd450900",
     "AKOS.md": "eae48200ee1bf2ec3fe2f267668b1dd09bac66f3bd2e01420e5787413f247a07",
+    "EASTER_EGGS.md": "0c4fc58a6163b54497fc8327ec77f4293330eea4ba636e30db202836bd450900",
     "HELIX_STRAND.md": "9ecd16c78fb474295ec84cffbc2250863329c2658cf491d8f108b07eeeaf7843",
-    "mastermind_sidecar.py": "9f07314aca438984bb8799727a436079b09b04c3cb393098c02eff655bb26d89",
+    "README.md": "a54e8f03d687138aa5653287d45e59df5e457c01164ae6df445206f4af2b858e",
     "SECURITY_AND_FLEET_OPS.md": "26141c0f07d95847d679de423ddb7bdee6f3e319d204383c89a58d6d3bb610c7",
-    "tests/test_zero_trust.py": "1a8c1a1b9da91428d52d34224a8fa3a9e19a884c5e0ef2f3a5a3c94005b761fd",
-    ".github/workflows/ci.yml": "393542f8109cac2611d6ab41b8b062e6cc8be46894379568f15c0b7e2c1a639f",
-    "src/zero_trust.py": "bf9a91a07d57790b76ec960a723f6a36d2eafdd271ac8bcc00738725d9cc82d9"
+    "mastermind_sidecar.py": "9f07314aca438984bb8799727a436079b09b04c3cb393098c02eff655bb26d89",
+    "src/zero_trust.py": "bf9a91a07d57790b76ec960a723f6a36d2eafdd271ac8bcc00738725d9cc82d9",
+    "tests/test_zero_trust.py": "1a8c1a1b9da91428d52d34224a8fa3a9e19a884c5e0ef2f3a5a3c94005b761fd"
   }
 }
