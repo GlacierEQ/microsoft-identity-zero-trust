@@ -7,6 +7,7 @@ but is never an identity proof or sole authorization factor.
 """
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Optional
 
 ANSWER = 42
 CONFIDENCE_FLOOR = 0.31415
@@ -18,7 +19,7 @@ class AccessContext:
     mfa_ok: bool
     geo_anomaly: float  # 0..1
     priv_role: bool
-    behavioral_risk: float | None = None  # 0..1; optional step-up signal
+    behavioral_risk: Optional[float] = None  # 0..1; optional step-up signal
 
 def decide(ctx: AccessContext) -> dict:
     score = (

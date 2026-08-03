@@ -6,7 +6,6 @@ not an identity proof and must not authorize high-impact actions by itself.
 """
 from __future__ import annotations
 from dataclasses import dataclass
-from math import sqrt
 from typing import Mapping
 
 FEATURES = (
