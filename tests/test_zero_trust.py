@@ -31,12 +31,21 @@ def test_fingerprint_suggests_step_up_and_is_non_authoritative():
     assert decide(AccessContext(0.05, 0.99, True, 0.0, False, result.risk))["decision"] == "STEP_UP"
 
 def test_fingerprint_rejects_invalid_features():
+    for invalid in (float("nan"), float("inf"), -1, 10001):
+        try:
+            assess(features(), features(key_flight_ms=invalid))
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("invalid feature should be rejected")
+
+def test_fingerprint_rejects_boolean_measurements():
     try:
-        assess(features(), features(correction_rate=1.1))
+        assess(features(), features(pointer_speed=True))
     except ValueError:
         pass
     else:
-        raise AssertionError("invalid ratio should be rejected")
+        raise AssertionError("boolean measurement should be rejected")
 
 if __name__=="__main__":
-    test_allow(); test_deny_priv_no_mfa(); test_fingerprint_stays_low_for_matching_profile(); test_fingerprint_suggests_step_up_and_is_non_authoritative(); test_fingerprint_rejects_invalid_features(); print("ok")
+    test_allow(); test_deny_priv_no_mfa(); test_fingerprint_stays_low_for_matching_profile(); test_fingerprint_suggests_step_up_and_is_non_authoritative(); test_fingerprint_rejects_invalid_features(); test_fingerprint_rejects_boolean_measurements(); print("ok")
