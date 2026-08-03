@@ -24,7 +24,9 @@ def test_fingerprint_stays_low_for_matching_profile():
     assert result.reason == "within-baseline-range"
 
 def test_fingerprint_suggests_step_up_and_is_non_authoritative():
-    result = assess(features(), features(key_flight_ms=900, pointer_speed=5, correction_rate=0.9))
+    result = assess(features(), features(key_flight_ms=900, key_dwell_ms=900,
+        correction_rate=0.9, pointer_speed=5, pointer_curvature=0.9,
+        click_interval_ms=1500, pause_rate=0.9))
     assert result.risk >= 0.65
     assert decide(AccessContext(0.05, 0.99, True, 0.0, False, result.risk))["decision"] == "STEP_UP"
 
