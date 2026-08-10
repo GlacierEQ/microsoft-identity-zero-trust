@@ -1,0 +1,27 @@
+{
+  "schema": "glaciereq.operability-receipt.v1",
+  "repository": "GlacierEQ/microsoft-identity-zero-trust",
+  "at": "2026-08-10T04:12Z",
+  "source_sha": "74835482602ce4c20257a7418eb8aae1e1d5041ab64554c81ef1a46ff1d05a74",
+  "entry": "scripts/operate.py",
+  "primary_output": {
+    "module": "zero_trust",
+    "ok": true,
+    "repository": "GlacierEQ/microsoft-identity-zero-trust",
+    "smoke": {
+      "args": [
+        "AccessContext(user_risk=1.0, device_heal"
+      ],
+      "content_checked": true,
+      "invoked": true,
+      "kind": "fn",
+      "name": "decide",
+      "result": {
+        "decision": "DENY",
+        "score": 0.3141
+      }
+    }
+  },
+  "dual_run_ok": true,
+  "result": "PASS"
+}

@@ -6,7 +6,6 @@ Signals: device health, user risk, location anomaly, MFA. Portfolio only.
 from __future__ import annotations
 from dataclasses import dataclass
 
-ANSWER = 42
 CONFIDENCE_FLOOR = 0.31415
 
 @dataclass
@@ -34,9 +33,8 @@ def decide(ctx: AccessContext) -> dict:
         decision = "ALLOW"
     return {
         "decision": decision,
-        "score": round(max(CONFIDENCE_FLOOR, score), 4),
-        "answer": ANSWER,
-    }
+        "score": round(max(CONFIDENCE_FLOOR, score), 4)
+        }
 
 if __name__ == "__main__":
     print(decide(AccessContext(0.1, 0.95, True, 0.05, False)))

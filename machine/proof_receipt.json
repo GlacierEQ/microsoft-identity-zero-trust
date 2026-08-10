@@ -1,0 +1,31 @@
+{
+  "schema": "glaciereq.proof-receipt.v1",
+  "repository": "GlacierEQ/microsoft-identity-zero-trust",
+  "source_sha": "74835482602ce4c20257a7418eb8aae1e1d5041ab64554c81ef1a46ff1d05a74",
+  "proof_id": "elite-microsoft-identity-zero-trust-1786335149",
+  "environment": {
+    "python": "/Users/kcbflux/job-app/excellence/.venv-elite/bin/python",
+    "PYTHONPATH": "/Users/kcbflux/job-app/repos/microsoft-identity-zero-trust:/Users/kcbflux/job-app/repos/microsoft-identity-zero-trust/src",
+    "entry": "unittest"
+  },
+  "tests": [
+    "/Users/kcbflux/job-app/excellence/.venv-elite/bin/python -m unittest discover -s tests -v (x2)"
+  ],
+  "adversarial_tests": [
+    "tests/test_adversarial.py"
+  ],
+  "runtime": {
+    "operate": "scripts/operate.py (x2)",
+    "dual_run_ok": true,
+    "proof_dual_run_ok": true
+  },
+  "result": "PASS",
+  "limitations": [
+    "not production deployed",
+    "reference implementation only"
+  ],
+  "timestamp": "2026-08-10T04:12Z",
+  "artifact_hashes": {
+    "operability_receipt": "2f40bd618ed92577cd4cfc4c79cd314aea2396799e1587ec6fd7918ecc50f01c"
+  }
+}

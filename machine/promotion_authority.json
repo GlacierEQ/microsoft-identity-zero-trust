@@ -1,0 +1,11 @@
+{
+  "schema": "glaciereq.promotion-authority-grant.v1",
+  "repository": "GlacierEQ/microsoft-identity-zero-trust",
+  "source_sha": "74835482602ce4c20257a7418eb8aae1e1d5041ab64554c81ef1a46ff1d05a74",
+  "proof_receipt_digest": "236dcc87f5a08130ec531fc99cc62def764ef78491f893220449744a6efe92ff",
+  "not_after": 1788927149.234226,
+  "mac": "0b8418e6fabfea34758951b629319836a3224715262219e0ac1bb1305fd4680f",
+  "issuer": "local_operator_promotion_authority",
+  "verified": true,
+  "secret_ref": "src/promotion_authority.py::LOCAL_OPERATOR_SECRET"
+}
