@@ -1,1 +1,16 @@
-{"capabilities": ["hyper-scaling"]}
+{
+  "schema": "glaciereq.bounded-capabilities.v1",
+  "capabilities": [
+    "validated-local-zero-trust-risk-policy",
+    "privileged-role-mfa-denial",
+    "zero-floor-risk-score-reporting",
+    "hash-bound-local-workload-identity-envelope",
+    "exact-audience-scope-lifetime-authorization",
+    "tamper-detecting-workload-identity-receipts"
+  ],
+  "evidence_state": "LOCAL_IDENTITY_POLICY_AND_WORKLOAD_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
+  "operational_authority": false,
+  "microsoft_entra_integration": false,
+  "credential_minting": false,
+  "production_access_grant": false
+}
