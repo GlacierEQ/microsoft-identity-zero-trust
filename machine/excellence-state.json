@@ -1,7 +1,7 @@
 {
   "schema": "glaciereq.repo-excellence-state.v1",
   "repository": "GlacierEQ/microsoft-identity-zero-trust",
-  "principal_state": "PROMOTED",
+  "principal_state": "FUNCTIONAL_CANDIDATE",
   "gates": {
     "IDENTITY_RESOLVED": {
       "status": "PASS",
@@ -30,13 +30,11 @@
     },
     "CENTRAL_MECHANISM_PRESENT": {
       "status": "PASS",
-      "at": "2026-08-10T06:25Z",
-      "evidence": "central mechanism in src/"
+      "evidence": "src/zero_trust.py + src/workload_identity.py"
     },
     "DETERMINISTIC_PROOF_GREEN": {
-      "status": "PASS",
-      "at": "2026-08-10T06:25Z",
-      "evidence": "dual-run green tests"
+      "status": "PENDING_CURRENT_HEAD_CI",
+      "evidence": "current zero-floor risk policy and workload-identity extension require exact-head CI"
     },
     "ADVERSARIAL_SURVIVAL": {
       "status": "PASS",
@@ -55,8 +53,7 @@
     },
     "AUTHORITY_BOUND": {
       "status": "PASS",
-      "at": "2026-08-10T06:25Z",
-      "evidence": "promotion_authority.json local HMAC grant"
+      "evidence": "machine contracts explicitly set operational_authority=false; workload identity is non-credential"
     },
     "PROJECTION_TRUTH_CLOSED": {
       "status": "PASS",
@@ -176,7 +173,7 @@
   ],
   "contract_ref": "machine/target-contract.json",
   "scores_ref": "machine/excellence-scores.json",
-  "evolution_cursor": "next:canonical_position_only_if_estate_role_resolved",
+  "evolution_cursor": "exact-current-head CI then optional bounded Entra-shaped adapter fixture",
   "wave": {
     "id": "ELITE-ESTATE-SCHEMA-MIGRATE-2026-08-10",
     "proof_ok": true,
@@ -188,9 +185,37 @@
     "projection_truth_closed_at": "2026-08-10T06:25Z",
     "policy": "glaciereq.repo-excellence.promotion-policy.v1"
   },
-  "state": "PROMOTED",
+  "state": "FUNCTIONAL_CANDIDATE",
   "proof_receipt": {
     "source_sha": "HYPER_VALIDATED_SHA256",
     "identity": "HYPER_VALIDATED_IDENTITY"
+  },
+  "operational_authority": false,
+  "evidence_state": "LOCAL_IDENTITY_POLICY_AND_WORKLOAD_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
+  "verified_scope": [
+    "validated-local-zero-trust-risk-policy",
+    "privileged-role-mfa-denial",
+    "zero-floor-risk-score-reporting",
+    "hash-bound-local-workload-identity-envelope",
+    "exact-audience-scope-lifetime-authorization",
+    "tamper-detecting-workload-identity-receipts"
+  ],
+  "nonclaims": [
+    "no Microsoft affiliation, endorsement, employment, proprietary access, or Entra authority",
+    "no Microsoft Entra API call or credential minting",
+    "no real device compliance inspection or behavioral-biometric model",
+    "no live MCP, APEX, or production identity federation",
+    "no production access grant or deployment"
+  ],
+  "current_head_extension": {
+    "mechanisms": [
+      "zero-floor local risk policy",
+      "least-privilege workload identity envelope"
+    ],
+    "tests": [
+      "tests/test_zero_trust.py",
+      "tests/test_workload_identity.py"
+    ],
+    "state": "IMPLEMENTED_CURRENT_HEAD_NATIVE_PROOF_REQUIRED"
   }
 }
