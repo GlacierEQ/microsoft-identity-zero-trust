@@ -2,21 +2,33 @@
   "schema": "glaciereq.repo-target-contract.v1",
   "identity": {
     "repository_id": "GlacierEQ/microsoft-identity-zero-trust",
-    "family": "elite-estate"
+    "family": "Microsoft"
   },
   "current": {
-    "state": "PROMOTED",
+    "state": "FUNCTIONAL_CANDIDATE",
     "implemented": true,
-    "tested": true,
+    "tested_in_source": true,
     "deployed": false
   },
-  "nonclaims": [
-    "no employer affiliation",
-    "no production deployment without receipt"
+  "evidence_state": "LOCAL_IDENTITY_POLICY_AND_WORKLOAD_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
+  "verified_scope": [
+    "validated caller-supplied user/device/MFA/location risk policy",
+    "privileged-role MFA denial and DENY/STEP_UP/ALLOW decisions",
+    "zero-floor weighted score reporting with malformed-signal refusal",
+    "hash-bound non-credential workload identity envelope",
+    "exact audience, scope, and lifetime authorization checks",
+    "identity tamper detection"
   ],
+  "nonclaims": [
+    "no Microsoft affiliation, endorsement, employment, proprietary access, or Entra authority",
+    "no Microsoft Entra API call or credential minting",
+    "no real device compliance inspection or behavioral-biometric model",
+    "no live MCP, APEX, or production identity federation",
+    "no production access grant or deployment"
+  ],
+  "next_gate": "exact-current-head repository CI for zero-trust and workload-identity tests",
   "donor_plan": {
     "mode": "none",
     "donors": []
-  },
-  "frozen_at": "2026-08-10T04:12Z"
+  }
 }
