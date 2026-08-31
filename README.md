@@ -1,59 +1,75 @@
-# Microsoft Identity Zero Trust — Zero Trust Identity & Access Engine 🔐
+# Microsoft Identity Zero Trust — Local Identity Policy Study
 
-> **Zero Trust identity verification with continuous authentication, conditional access, and least-privilege enforcement.**
+Independent GlacierEQ portfolio work modeling two identity-security boundaries:
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue)]()
-[![Rust](https://img.shields.io/badge/Rust-Security%20Critical-orange)]()
-[![Domain](https://img.shields.io/badge/Domain-Identity%20Security-green)]()
+1. a deterministic zero-trust access policy over caller-supplied risk, device-health, MFA, location-anomaly, and privilege signals; and
+2. a hash-bound workload-identity envelope with exact audience, scope, lifetime, and source binding.
 
----
+**Evidence state:** `LOCAL_IDENTITY_POLICY_AND_WORKLOAD_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY`
 
-## 🎯 For Recruiters & Hiring Managers
+This repository is not affiliated with, endorsed by, or operated by Microsoft. It does not contact Microsoft Entra, mint real credentials, inspect real devices, or grant production access.
 
-This repository implements a **Zero Trust identity engine** — the security layer that treats every request as potentially hostile, requiring continuous verification regardless of network location. It demonstrates:
+## Current mechanisms
 
-- **Continuous authentication** with risk-adaptive step-up challenges
-- **Conditional access policies** evaluating device health, location, and behavior patterns
-- **Least-privilege enforcement** with just-in-time (JIT) access provisioning
-- **Token lifecycle management** with short-lived tokens and automatic rotation
+### Zero-trust policy
 
-**Why this matters**: Zero Trust is the dominant security paradigm for modern enterprises. This codebase demonstrates the **identity engineering, cryptographic token management, and policy engine design** that security teams need.
+`src/zero_trust.py` validates every numeric signal as finite and bounded in `0..1`, rejects malformed boolean state, and produces `DENY`, `STEP_UP`, or `ALLOW` from an explicit weighted policy.
 
----
+A privileged role without MFA is denied directly.
 
-## 🔬 For Engineers & Technical Reviewers
+The earlier artificial `0.31415` confidence floor has been removed. A fully adverse input can report a score of exactly `0.0`; the repository no longer raises weak evidence to a decorative minimum.
 
-### Core Components
+Every result records:
 
-| Component | Language | Purpose |
-|---|---|---|
-| `src/zero_trust.py` | Python | Policy engine, conditional access, risk scoring |
-| `src/token_verifier.rs` | Rust | Cryptographic token validation with memory-safe guarantees |
-| `tests/` | Python | Attack scenario testing with credential replay detection |
+- `LOCAL_ZERO_TRUST_POLICY_NOT_MICROSOFT_ENTRA_AUTHORITY`
+- `operational_authority=false`
+- `entra_api_call=false`
 
-### Zero Trust Principles
+### Workload identity envelope
 
-1. **Never trust, always verify** — every request authenticated regardless of origin
-2. **Least privilege access** — JIT provisioning with automatic expiration
-3. **Assume breach** — microsegmentation and blast radius containment
+`src/workload_identity.py` creates a deterministic, non-credential identity envelope containing:
 
----
+- subject;
+- exact audience;
+- deduplicated exact scopes;
+- explicit issue and expiry times;
+- source SHA;
+- SHA-256 receipt.
 
-## 🤖 ML/AI & Programmatic Mesh Integration
+Authorization fails closed on:
 
-- **MCP Tool**: `verify_identity(token)` — authentication queryable by all portfolio agents
-- **Mastermind Sidecar**: Publishes auth events to APEX Highway mesh
-- **AI Extension**: Behavioral biometrics model for continuous identity confidence scoring
+- receipt tampering;
+- audience mismatch;
+- missing scope;
+- use outside the validity window.
 
-```python
-result = await mcp_client.call_tool("zero-trust", "verify", {"token": "eyJ..."})
-```
+The envelope is deliberately **not a token or Entra credential**. It is a local contract for reasoning about workload identity and least privilege before a future provider adapter exists.
 
----
+## Proof surfaces
 
-## ⚡ Quick Start
+| Surface | Purpose |
+|---|---|
+| `src/zero_trust.py` | validated local risk/conditional-access decision |
+| `src/workload_identity.py` | audience/scope/lifetime-bound workload identity envelope |
+| `tests/test_zero_trust.py` | allow/deny, zero-floor score, malformed-signal refusal |
+| `tests/test_workload_identity.py` | scope/audience/lifetime/tamper refusal |
+| `.github/workflows/ci.yml` | repository CI entrypoint |
+
+## Native proof
 
 ```bash
-python3 src/zero_trust.py
-python3 tests/test_zero_trust.py
+PYTHONPATH=src python -m pytest -q
 ```
+
+## Evidence boundary
+
+Current source does **not** establish:
+
+- Microsoft Entra integration;
+- real token validation or issuance;
+- device-compliance telemetry;
+- behavioral biometrics;
+- live MCP or APEX registration;
+- production federation, traffic, scale, reliability, or deployment.
+
+Those are separate evidence states. The current project proves deterministic local policy, least-privilege identity structure, and fail-closed authorization semantics.
