@@ -10,12 +10,19 @@
     "principal-aware-agent-action-authorization",
     "autonomous-workload-risk-and-location-gating",
     "delegated-human-zero-trust-gating",
-    "receipt-bound-agent-authorization-decisions"
+    "receipt-bound-agent-authorization-decisions",
+    "immutable-action-to-permission-policy-bindings",
+    "policy-derived-multi-scope-agent-authorization",
+    "fail-closed-unassigned-agent-actions",
+    "mode-specific-agent-action-authorization",
+    "deterministic-action-policy-receipts"
   ],
   "evidence_state": "LOCAL_IDENTITY_AND_AGENT_AUTHORIZATION_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
   "operational_authority": false,
   "microsoft_entra_integration": false,
   "credential_minting": false,
   "production_access_grant": false,
-  "agent_id_integration": false
+  "agent_id_integration": false,
+  "action_policy_binding": true,
+  "caller_supplied_scope_authority": false
 }
