@@ -5,7 +5,7 @@
     "family": "Microsoft"
   },
   "current": {
-    "state": "FUNCTIONAL_CANDIDATE",
+    "state": "VERIFIED_FUNCTIONAL_CANDIDATE",
     "implemented": true,
     "tested_in_source": true,
     "deployed": false
@@ -21,7 +21,11 @@
     "principal-aware agent action authorization for AUTONOMOUS and DELEGATED modes",
     "modeled service-principal risk and trusted-location blocking",
     "delegated human zero-trust gate kept distinct from nonhuman workload identity",
-    "deterministic receipt-bound authorization decisions with explicit failure reasons"
+    "deterministic receipt-bound authorization decisions with explicit failure reasons",
+    "explicit action assignment with fail-closed unknown actions",
+    "policy-derived audience and multiple required scopes rather than caller-supplied authorization requirements",
+    "mode-specific autonomous/delegated action controls",
+    "deterministic action-policy and policy-set receipts bound into authorization decisions"
   ],
   "nonclaims": [
     "no Microsoft affiliation, endorsement, employment, proprietary access, or Entra authority",
@@ -32,9 +36,18 @@
     "no Microsoft Entra Agent ID provisioning or Graph integration",
     "no tenant risk telemetry, production Conditional Access enforcement, or real agent access grant"
   ],
-  "next_gate": "exact-current-head CI including principal-aware agent authorization tests",
+  "next_gate": "bind ActionPolicySet provenance/version to a trusted repository policy source so callers cannot substitute a permissive policy set",
   "donor_plan": {
     "mode": "none",
     "donors": []
+  },
+  "verification": {
+    "last_verified_head": "95fbc4bbc4369b95c4b36104eb8983f3ff56c925",
+    "workflow_run_id": 33519553880,
+    "tests_passed": 28,
+    "ruff_lint": "PASS",
+    "ruff_format": "PASS",
+    "compileall": "PASS",
+    "artifact_digest": "sha256:0968ca741809f95bab1959af739aec8bbe881f1097534f9a024900cdc52628f1"
   }
 }
