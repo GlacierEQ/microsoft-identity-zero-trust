@@ -10,23 +10,29 @@
     "tested_in_source": true,
     "deployed": false
   },
-  "evidence_state": "LOCAL_IDENTITY_POLICY_AND_WORKLOAD_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
+  "evidence_state": "LOCAL_IDENTITY_AND_AGENT_AUTHORIZATION_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
   "verified_scope": [
     "validated caller-supplied user/device/MFA/location risk policy",
     "privileged-role MFA denial and DENY/STEP_UP/ALLOW decisions",
     "zero-floor weighted score reporting with malformed-signal refusal",
     "hash-bound non-credential workload identity envelope",
     "exact audience, scope, and lifetime authorization checks",
-    "identity tamper detection"
+    "identity tamper detection",
+    "principal-aware agent action authorization for AUTONOMOUS and DELEGATED modes",
+    "modeled service-principal risk and trusted-location blocking",
+    "delegated human zero-trust gate kept distinct from nonhuman workload identity",
+    "deterministic receipt-bound authorization decisions with explicit failure reasons"
   ],
   "nonclaims": [
     "no Microsoft affiliation, endorsement, employment, proprietary access, or Entra authority",
     "no Microsoft Entra API call or credential minting",
     "no real device compliance inspection or behavioral-biometric model",
     "no live MCP, APEX, or production identity federation",
-    "no production access grant or deployment"
+    "no production access grant or deployment",
+    "no Microsoft Entra Agent ID provisioning or Graph integration",
+    "no tenant risk telemetry, production Conditional Access enforcement, or real agent access grant"
   ],
-  "next_gate": "exact-current-head repository CI for zero-trust and workload-identity tests",
+  "next_gate": "exact-current-head CI including principal-aware agent authorization tests",
   "donor_plan": {
     "mode": "none",
     "donors": []
