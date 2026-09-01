@@ -1,9 +1,10 @@
 # Microsoft Identity Zero Trust — Local Identity Policy Study
 
-Independent GlacierEQ portfolio work modeling two identity-security boundaries:
+Independent GlacierEQ portfolio work modeling three identity-security boundaries:
 
-1. a deterministic zero-trust access policy over caller-supplied risk, device-health, MFA, location-anomaly, and privilege signals; and
-2. a hash-bound workload-identity envelope with exact audience, scope, lifetime, and source binding.
+1. a deterministic zero-trust access policy over caller-supplied risk, device-health, MFA, location-anomaly, and privilege signals;
+2. a hash-bound workload-identity envelope with exact audience, scope, lifetime, and source binding; and
+3. a policy-bound agent action authorization plane that derives audience, scopes, allowed execution modes, and workload controls from trusted action policy rather than caller self-description.
 
 **Evidence state:** `LOCAL_IDENTITY_POLICY_AND_WORKLOAD_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY`
 
@@ -53,9 +54,13 @@ pretending that human and nonhuman identities are the same principal type.
 
 For every modeled agent action it evaluates:
 
-1. workload identity integrity plus exact audience, scope, and lifetime;
-2. service-principal risk and trusted-location controls; and
-3. for `DELEGATED` actions only, the separate human zero-trust decision.
+1. explicit action assignment from `src/action_policy.py`;
+2. policy-derived audience and one-or-more exact required scopes;
+3. workload identity integrity plus exact audience, scope, and lifetime;
+4. action-specific allowed modes, service-principal risk threshold, and trusted-location controls; and
+5. for `DELEGATED` actions only, the separate human zero-trust decision.
+
+Unknown actions fail closed with `ACTION_NOT_ASSIGNED`. The runtime request no longer supplies its own required scope. Each action policy and policy set has a deterministic SHA-256 receipt that is bound into the authorization result.
 
 The result is a deterministic receipt-bound `ALLOW`, `STEP_UP`, or `DENY`
 decision with explicit reason codes.
@@ -70,8 +75,11 @@ Access, or grant real access.
 |---|---|
 | `src/zero_trust.py` | validated local risk/conditional-access decision |
 | `src/workload_identity.py` | audience/scope/lifetime-bound workload identity envelope |
+| `src/action_policy.py` | immutable action-to-audience/scope/mode/risk policy binding |
 | `src/authorization_plane.py` | principal-aware autonomous/delegated action authorization |
-| `tests/test_authorization_plane.py` | identity/risk/location/delegation fail-closed behavior |
+| `tests/test_authorization_plane.py` | assignment, scope, mode, identity, risk, location, and delegation refusal paths |
+| `docs/RESEARCH_2026-09-01_AGENT_AUTHORIZATION.md` | current Agent ID / workload identity research basis |
+| `docs/RESEARCH_2026-09-01_ACTION_POLICY_BINDING.md` | least-privilege action-policy research and design decision |
 | `tests/test_zero_trust.py` | allow/deny, zero-floor score, malformed-signal refusal |
 | `tests/test_workload_identity.py` | scope/audience/lifetime/tamper refusal |
 | `.github/workflows/ci.yml` | repository CI entrypoint |
@@ -79,7 +87,7 @@ Access, or grant real access.
 ## Native proof
 
 ```bash
-PYTHONPATH=src python -m pytest -q
+bash .github/verification/python.sh
 ```
 
 ## Evidence boundary
@@ -94,4 +102,4 @@ Current source does **not** establish:
 - production federation, traffic, scale, reliability, or deployment;
 - real Microsoft Entra Agent ID provisioning or tenant policy enforcement.
 
-Those are separate evidence states. The current project proves deterministic local policy, least-privilege identity structure, and fail-closed authorization semantics.
+Those are separate evidence states. The current project proves deterministic local policy, least-privilege identity structure, fail-closed action assignment, policy-derived multi-scope authorization, and receipt-bound authorization semantics.
