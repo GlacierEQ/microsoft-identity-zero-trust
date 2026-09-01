@@ -7,6 +7,7 @@ add the human access decision as a separate gate.
 
 It performs no Microsoft Entra operation and grants no production authority.
 """
+
 from __future__ import annotations
 
 import hashlib
