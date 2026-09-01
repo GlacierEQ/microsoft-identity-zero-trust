@@ -34,7 +34,7 @@ def _digest(value: object) -> str:
 
 def _unit_interval(name: str, value: object) -> float:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
-        raise ValueError(f"{name} must be a finite number in 0..1")
+        raise TypeError(f"{name} must be a finite number in 0..1")
     numeric = float(value)
     if not math.isfinite(numeric) or not 0.0 <= numeric <= 1.0:
         raise ValueError(f"{name} must be a finite number in 0..1")
@@ -55,7 +55,7 @@ class WorkloadAccessPolicy:
             _unit_interval("risk_block_threshold", self.risk_block_threshold),
         )
         if not isinstance(self.require_trusted_location, bool):
-            raise ValueError("require_trusted_location must be boolean")
+            raise TypeError("require_trusted_location must be boolean")
 
 
 @dataclass(frozen=True, slots=True)
@@ -79,21 +79,23 @@ class AgentActionRequest:
             ("audience", self.audience),
             ("required_scope", self.required_scope),
         ):
-            if not isinstance(value, str) or not value.strip():
+            if not isinstance(value, str):
+                raise TypeError(f"{name} must be text")
+            if not value.strip():
                 raise ValueError(f"{name} must be non-empty text")
         if isinstance(self.now, bool) or not isinstance(self.now, int):
-            raise ValueError("now must be an integer")
+            raise TypeError("now must be an integer")
         object.__setattr__(
             self,
             "service_principal_risk",
             _unit_interval("service_principal_risk", self.service_principal_risk),
         )
         if not isinstance(self.trusted_location, bool):
-            raise ValueError("trusted_location must be boolean")
+            raise TypeError("trusted_location must be boolean")
         if self.human_context is not None and not isinstance(
             self.human_context, AccessContext
         ):
-            raise ValueError("human_context must be an AccessContext or None")
+            raise TypeError("human_context must be an AccessContext or None")
 
 
 def authorize_action(
@@ -111,10 +113,10 @@ def authorize_action(
     """
 
     if not isinstance(request, AgentActionRequest):
-        raise ValueError("request must be an AgentActionRequest")
+        raise TypeError("request must be an AgentActionRequest")
     policy = policy or WorkloadAccessPolicy()
     if not isinstance(policy, WorkloadAccessPolicy):
-        raise ValueError("policy must be a WorkloadAccessPolicy")
+        raise TypeError("policy must be a WorkloadAccessPolicy")
 
     reasons: list[str] = []
     identity_receipt = identity.get("receipt_sha256")
