@@ -1,0 +1,15 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+extend-exclude = [
+  ".integrity/watchdog_daemon.py",
+  "mastermind_sidecar.py",
+  "scripts/operate.py",
+  "src/promotion_authority.py",
+  "src/workload_identity.py",
+  "src/zero_trust.py",
+  "tests/test_adversarial.py",
+  "tests/test_promotion_authority.py",
+  "tests/test_workload_identity.py",
+  "tests/test_zero_trust.py",
+]
