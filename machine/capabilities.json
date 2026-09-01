@@ -6,11 +6,16 @@
     "zero-floor-risk-score-reporting",
     "hash-bound-local-workload-identity-envelope",
     "exact-audience-scope-lifetime-authorization",
-    "tamper-detecting-workload-identity-receipts"
+    "tamper-detecting-workload-identity-receipts",
+    "principal-aware-agent-action-authorization",
+    "autonomous-workload-risk-and-location-gating",
+    "delegated-human-zero-trust-gating",
+    "receipt-bound-agent-authorization-decisions"
   ],
-  "evidence_state": "LOCAL_IDENTITY_POLICY_AND_WORKLOAD_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
+  "evidence_state": "LOCAL_IDENTITY_AND_AGENT_AUTHORIZATION_MODEL_NOT_MICROSOFT_ENTRA_AUTHORITY",
   "operational_authority": false,
   "microsoft_entra_integration": false,
   "credential_minting": false,
-  "production_access_grant": false
+  "production_access_grant": false,
+  "agent_id_integration": false
 }
