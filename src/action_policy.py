@@ -53,9 +53,7 @@ class ActionPolicy:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "action", _nonempty_text("action", self.action))
-        object.__setattr__(
-            self, "audience", _nonempty_text("audience", self.audience)
-        )
+        object.__setattr__(self, "audience", _nonempty_text("audience", self.audience))
 
         if not isinstance(self.required_scopes, tuple):
             raise TypeError("required_scopes must be a tuple")
