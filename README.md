@@ -45,12 +45,33 @@ Authorization fails closed on:
 
 The envelope is deliberately **not a token or Entra credential**. It is a local contract for reasoning about workload identity and least privilege before a future provider adapter exists.
 
+
+### Agent / workload authorization plane
+
+`src/authorization_plane.py` composes the existing local mechanisms without
+pretending that human and nonhuman identities are the same principal type.
+
+For every modeled agent action it evaluates:
+
+1. workload identity integrity plus exact audience, scope, and lifetime;
+2. service-principal risk and trusted-location controls; and
+3. for `DELEGATED` actions only, the separate human zero-trust decision.
+
+The result is a deterministic receipt-bound `ALLOW`, `STEP_UP`, or `DENY`
+decision with explicit reason codes.
+
+This is intentionally a local model. It does not create Microsoft Entra Agent
+ID objects, consume tenant risk telemetry, enforce production Conditional
+Access, or grant real access.
+
 ## Proof surfaces
 
 | Surface | Purpose |
 |---|---|
 | `src/zero_trust.py` | validated local risk/conditional-access decision |
 | `src/workload_identity.py` | audience/scope/lifetime-bound workload identity envelope |
+| `src/authorization_plane.py` | principal-aware autonomous/delegated action authorization |
+| `tests/test_authorization_plane.py` | identity/risk/location/delegation fail-closed behavior |
 | `tests/test_zero_trust.py` | allow/deny, zero-floor score, malformed-signal refusal |
 | `tests/test_workload_identity.py` | scope/audience/lifetime/tamper refusal |
 | `.github/workflows/ci.yml` | repository CI entrypoint |
@@ -70,6 +91,7 @@ Current source does **not** establish:
 - device-compliance telemetry;
 - behavioral biometrics;
 - live MCP or APEX registration;
-- production federation, traffic, scale, reliability, or deployment.
+- production federation, traffic, scale, reliability, or deployment;
+- real Microsoft Entra Agent ID provisioning or tenant policy enforcement.
 
 Those are separate evidence states. The current project proves deterministic local policy, least-privilege identity structure, and fail-closed authorization semantics.
